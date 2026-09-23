@@ -10,12 +10,12 @@ Rodar primeiro um piloto reproduzível, com casos de 72 horas em quatro estaçõ
 
 1. Clone este repositório no sistema de arquivos de trabalho.
 2. Copie `config/local.example.json` para `config/local.json` e preencha os caminhos locais, a conta PBS e o diretório `WPS_GEOG`.
-3. Execute `./experiment doctor` para verificar módulos, executáveis e diretórios.
-4. Execute `./experiment setup` para gerar `namelist.wps` e `namelist.input` a partir da configuração.
-5. Execute `./experiment submit smoke` para um teste curto de 6 horas.
-6. Se o teste terminar corretamente, execute `./experiment submit pilot` para os casos sazonais.
+3. Execute `bash experiment doctor` para verificar módulos, executáveis e diretórios.
+4. Execute `bash experiment setup` para criar a árvore de trabalho.
+5. Execute `bash experiment submit smoke` para confirmar a configuração.
+6. Depois de validar o smoke, execute `bash experiment submit pilot` para os casos sazonais.
 
-A versão inicial usa D01=9 km, D02=3 km e D03=1 km. D04=333 m fica preparado para o piloto; a grade de 111 m é experimental e não é submetida por padrão.
+A versão inicial usa D01=9 km, D02=3 km e D03=1 km. D04=333 m fica descrito na configuração para o próximo teste; a grade de 111 m não é submetida por padrão.
 
 ## Dados
 
@@ -26,14 +26,13 @@ A versão inicial usa D01=9 km, D02=3 km e D03=1 km. D04=333 m fica preparado pa
 ## Estrutura
 
 - `config/`: configuração científica e parâmetros da máquina.
-- `workflow/`: comandos de diagnóstico, preparação e submissão PBS.
-- `templates/`: modelos dos namelists.
-- `docs/`: decisões, dados e critérios de validação.
+- `workflow/`: comandos de diagnóstico e submissão PBS.
+- `docs/`: decisões científicas e fluxo operacional.
 - `validation/`: espaço para observações do CEBIMar e métricas.
 
 ## Estado atual
 
-A estrutura é um esqueleto executável em preparação. Os domínios exatos, a física da grade subquilométrica e a fonte topográfica final precisam ser validados no NCAR antes de qualquer integração longa.
+Esta primeira versão é a base documentada do piloto. Ela verifica a configuração e cria os diretórios, mas ainda não gera automaticamente os `namelist` nem baixa ERA5: esses dois pontos dependem da confirmação final da projeção, dos domínios e do formato de dados disponível no NCAR. Não iniciar uma integração WRF apenas com este esqueleto.
 
 ## Referências
 
