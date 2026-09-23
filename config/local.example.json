@@ -1,0 +1,12 @@
+{
+  "work_root": "/glade/derecho/scratch/$USER/wrf-sao-sebastiao",
+  "wrf_dir": "/glade/work/wrfhelp/derecho_pre_compiled_code/wrfv4.7.1",
+  "wps_dir": "/glade/work/wrfhelp/derecho_pre_compiled_code/wpsv4.6.0_jb",
+  "geog_dir": "/glade/work/wrfhelp/WPS_GEOG",
+  "era5_dir": "/path/to/era5/grib",
+  "account": "PROJECT_CODE",
+  "queue": "main",
+  "ncpus": 128,
+  "mpiprocs": 32,
+  "walltime": "06:00:00"
+}
