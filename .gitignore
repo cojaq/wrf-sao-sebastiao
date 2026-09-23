@@ -1,0 +1,13 @@
+config/local.json
+work/
+runs/
+logs/
+*.grb
+*.grib
+*.grib1
+*.grib2
+wrfout_*
+met_em.*
+geo_em.*
+wrfrst_*
+*.nc
