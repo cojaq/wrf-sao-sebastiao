@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+LOCAL="$ROOT/config/local.json"
+CFG="$ROOT/config/experiment.json"
+if [[ ! -f "$LOCAL" ]]; then echo "Falta config/local.json (copie local.example.json)."; exit 2; fi
+cmd="${1:-help}"
+case "$cmd" in
+  doctor)
+    command -v jq >/dev/null || { echo "Falta jq"; exit 2; }
+    jq empty "$CFG" "$LOCAL"
+    for x in mpiexec qsub; do command -v "$x" >/dev/null || echo "Aviso: $x não encontrado"; done
+    echo "Configuração JSON válida. Confira caminhos e conta PBS."
+    ;;
+  setup)
+    mkdir -p "$(jq -r .work_root "$LOCAL")"/{static,wps,real,runs,logs}
+    echo "Diretórios criados. A geração dos namelists será adicionada após confirmar a projeção/domínios no NCAR."
+    ;;
+  submit)
+    case "${2:-}" in
+      smoke) echo "Smoke preparado: use workflow/pbs_smoke.sh após preencher a conta PBS." ;;
+      pilot) echo "Piloto preparado: quatro casos em config/experiment.json; submeta após validar o smoke." ;;
+      *) echo "Uso: ./experiment submit {smoke|pilot}"; exit 2 ;;
+    esac
+    ;;
+  *) echo "Uso: ./experiment {doctor|setup|submit smoke|submit pilot}" ;;
+esac
